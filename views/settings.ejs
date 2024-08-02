@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/setting.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/settings">User</a></li>
+        </ul>
+        <div class="nav-button">
+            <div class="username">
+                <%= userName %>
+            </div>
+            <% if(state) { %>
+                <a href="/logout">Logout</a>
+            <% }else{ %>
+                <a href="/login">Login</a>
+            <% } %>
+        </div>
+    </nav>
+    <h2 class="container">Settings</h2>
+    <section class="setting-container container">
+        <section class="navigation-panel">
+            <ul>
+                <li><a href="/setting/total-sale">Total Sale</a></li>
+                <li><a href="/setting/total-party-sale">Total Party Sale</a></li>
+                <li><a href="/setting/bill-sheet">Bill sheet</a></li>
+                <li><a href="/setting/client-prize-invoice">Client Prize invoice</a></li>
+                <li><a href="/setting/custom-draw">Custom Draw</a></li>
+                <li><a href="/setting/change-password">Change Password</a></li>
+            </ul>
+        </section>
+        <section>
+
+        </section>
+    </section>
+</body>
+</html>

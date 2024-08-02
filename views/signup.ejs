@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Signup</h2>
+            <form action="/register-user" method="post">
+                <input type="text" name="first_name" placeholder="Frist Name" required>
+                <input type="text" name="last_name" placeholder="Last Name" requiredd>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <div class="register-container">
+                    Already register -
+                    <a href="/login">
+                        login
+                    </a>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    let messageFromBackend = `<%= message %>`;
+    if(messageFromBackend === "hi"){
+        console.log(messageFromBackend)
+    }else{
+        alert(messageFromBackend);
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,94 @@
+nav ul li:nth-child(3) a{
+    color: var(--color-primary);
+}
+h2{
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    user-select: none;
+}
+.setting-container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.navigation-panel{
+    width: 30%;
+}
+.navigation-panel ul{
+    border: 1px solid rgb(43, 43, 43);
+    width: 100%;
+    border-radius: 3px;
+}
+.bg-blue {
+    background-color: var(--color-primary-light);
+}
+
+.bg-blue:hover {
+    background-color: transparent;
+}
+.navigation-panel ul li a{
+    border-bottom: 1px solid rgb(43, 43, 43);
+    padding: 1.2rem 1rem;
+    display: block;
+    font-size: 1.05rem;
+    width: 100%;
+    font-weight: 100;
+    transition: all .2s ease;
+}
+.navigation-panel ul li a:hover{
+    background-color: var(--color-primary-light);
+}
+.setting-items{
+    width: 65%;
+}
+.setting-items header, footer{
+    background-color: var(--color-secondary);
+    padding: 1.3rem 1.5rem;
+}
+.setting-items main{
+    background-color: rgb(22, 22, 22);
+}
+.setting-items header h3{
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+.setting-items footer button{
+    padding: .7rem 2.5rem;
+    background-color: var(--color-primary-light);
+    color: white;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+}
+.setting-items main{
+    padding: 3rem 1.5rem;
+}
+.main-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.main-container div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}
+.main-container input, .main-container select{
+    width: 60%;
+    padding: .5rem .8rem;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    background-color: var(--color-white-light);
+}
+select, input[type=date]{
+    cursor: pointer;
+}
+.setting-item-two{
+    margin-left: auto;
+    margin-top: 1rem;
+}

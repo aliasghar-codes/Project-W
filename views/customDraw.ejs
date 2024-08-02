@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting - Total Sale</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/setting.css">
+    <style media="print">
+        html {
+            visibility: hidden;
+        }
+
+        .printable-content {
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/settings">User</a></li>
+        </ul>
+        <div class="nav-button">
+            <div class="username">
+                <%= userName %>
+            </div>
+            <% if(state) { %>
+                <a href="/logout">Logout</a>
+                <% }else{ %>
+                    <a href="/login">Login</a>
+                    <% } %>
+        </div>
+    </nav>
+    <h2 class="container">Settings</h2>
+    <section class="setting-container container">
+        <section class="navigation-panel">
+            <ul>
+                <li><a href="/setting/total-sale">Total Sale</a></li>
+                <li><a href="/setting/total-party-sale">Total Party Sale</a></li>
+                <li><a href="/setting/bill-sheet">Bill sheet</a></li>
+                <li><a href="/setting/client-prize-invoice">Client Prize invoice</a></li>
+                <li><a href="/setting/custom-draw" class="bg-blue">Custom Draw</a></li>
+                <li><a href="/setting/change-password">Change Password</a></li>
+            </ul>
+        </section>
+        <section class="setting-items setting-item-one">
+            <header>
+                <h3>Add Draw</h3>
+            </header>
+            <main>
+                <form action="/draw/create" method="post">
+                    <div class="main-container">
+                        <div>
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div>
+                            <label for="date">Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div>
+                            <label for="time">Time</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+            </main>
+            <footer>
+                <button type="submit">Add</button>
+                </form>
+            </footer>
+        </section>
+        <section class="setting-items setting-item-two">
+            <header>
+                <h3>Delete Draw</h3>
+            </header>
+            <main>
+                <form action="/draw/delete" method="post">
+                    <div class="main-container">
+                        <div>
+                            <label for="delete">Draws</label>
+                            <select name="draw" id="delete" required>
+                                <option value="None">None</option>
+                                <% if (Array.isArray(draws)) { %>
+                                    <% draws.forEach(draw=> { %>
+                                        <option value="<%= draw.name %>"><%= draw.name %></option>
+                                    <% }); %>
+                                <% } else { %>
+                                        <option value="<%= draws.name %>"><%= draws.name %></option>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+            </main>
+            <footer>
+                <button type="submit">Delete</button>
+                </form>
+            </footer>
+        </section>
+    </section>
+</body>
+
+<script>
+    let messageFromBackend = `<%= message %>`;
+
+    if (messageFromBackend === "hi") {
+        console.log(messageFromBackend)
+    } else {
+        alert(messageFromBackend);
+    }
+
+</script>
+
+</html>

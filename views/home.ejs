@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - App</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/home.css">
+    <style media="print">
+        html {
+            visibility: hidden;
+        }
+
+        .printable-content {
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/settings">User</a></li>
+        </ul>
+        <div class="nav-button">
+            <div class="username">
+                <%= userName %>
+            </div>
+            <% if(state) { %>
+                <a href="/logout">Logout</a>
+            <% }else{ %>
+                <a href="/login">Login</a>
+            <% } %>
+        </div>
+    </nav>
+    <header>
+        <div class="top-container">
+            <span>0</span>
+            <p>Numbers</p>
+        </div>
+        <div class="top-container">
+            <span>0</span>
+            <p>1st</p>
+        </div>
+        <div class="top-container">
+            <span>0</span>
+            <p>2nd</p>
+        </div>
+        <div class="top-container">
+            <span>0</span>
+            <p>total</p>
+        </div>
+    </header>
+    <section class="middle-container container">
+        <label for="select-draw">Select Draw
+            <select id="select-draw">
+                <option value="None">
+                    None
+                </option>
+                <% if (Array.isArray(draws)) { %>
+                    <% draws.forEach(draw=> { %>
+                        <option value="<%= draw.name %>"><%= draw.name %></option>
+                    <% }); %>
+                <% } else { %>
+                        <option value="<%= draws.name %>"><%= draws.name %></option>
+                <% } %>
+            </select>
+        </label>
+        <div class="end-time">
+            <p><strong>End: </strong></p>
+            <span id="dateContainer"></span>
+            <span id="timeContainer"></span>
+        </div>
+    </section>
+    <section class="bottom-section container">
+        <div class="bottom-left">
+            <table class="printable-content">
+                <tr>
+                    <th>#</th>
+                    <th>Numbers</th>
+                    <th>1st</th>
+                    <th>2nd</th>
+                    <th onclick="clearAllRows()">Cl</th>
+                </tr>
+            </table>
+        </div>
+        <div class="bottom-right">
+            <input type="text" placeholder="Name of the Customer" id="customer_name">
+            <div class="bottom-buttons">
+                <button>Save Sheet</button>
+                <button onclick="printSheet()">Print Sheet</button>
+            </div>
+            <label for="action">
+                Quick Action: 
+            </label>
+            <select name="action" id="action">
+                <option value="None">
+                    None
+                </option>
+                <option value="2 no scissor">
+                    2 no scissor
+                </option>
+                <option value="3 no scissor">
+                    3 no scissor
+                </option>
+                <option value="4 no scissor">
+                    4 no scissor
+                </option>
+                <option value="Clause">
+                    Clause
+                </option>
+            </select>
+        </div>
+    </section>
+    <footer>
+        <form action="#" onsubmit="return addBundle(event)">
+            <input type="text" placeholder="Number" name="number" required maxlength="6">
+            <input type="text" placeholder="First" name="first" required>
+            <input type="text" placeholder="Second" name="second" required>
+            <button type="submit">
+                Add
+            </button>
+        </form>
+    </footer>
+</body>
+<script>
+    const draws = '<%- JSON.stringify(draws) %>';
+    const parseDraws = JSON.parse(draws);
+
+    document.getElementById("select-draw").onchange = e => {
+        const value = e.target.value;
+
+        if(value == "None"){
+            document.getElementById("dateContainer").innerText = " ";
+            document.getElementById("timeContainer").innerText = " ";
+        }else{
+            const object = parseDraws.find(obj => obj.name == value);
+            const date = object.date.split("T")[0];
+            const time = object.time;
+            document.getElementById("dateContainer").innerText = `${date}`;
+            document.getElementById("timeContainer").innerText = `${time}`;
+        }
+    }
+</script>
+<script src="/javascripts/home.js"></script>
+</html>

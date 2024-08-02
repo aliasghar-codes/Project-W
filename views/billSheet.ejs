@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting - Bill Sheet</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/setting.css">
+    <style media="print">
+        html {
+            visibility: hidden;
+        }
+
+        .printable-content {
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/settings">User</a></li>
+        </ul>
+        <div class="nav-button">
+            <div class="username">
+                <%= userName %>
+            </div>
+            <% if(state) { %>
+                <a href="/logout">Logout</a>
+            <% }else{ %>
+                <a href="/login">Login</a>
+            <% } %>
+        </div>
+    </nav>
+    <h2 class="container">Settings</h2>
+    <section class="setting-container container">
+        <section class="navigation-panel">
+            <ul>
+                <li><a href="/setting/total-sale">Total Sale</a></li>
+                <li><a href="/setting/total-party-sale">Total Party Sale</a></li>
+                <li><a href="/setting/bill-sheet" class="bg-blue">Bill sheet</a></li>
+                <li><a href="/setting/client-prize-invoice">Client Prize invoice</a></li>
+                <li><a href="/setting/custom-draw">Custom Draw</a></li>
+                <li><a href="/setting/change-password">Change Password</a></li>
+            </ul>
+        </section>
+        <section class="setting-items">
+            <header>
+                <h3>Bills Report</h3>
+            </header>
+            <main>
+                <form action="/setting/bill-sheet" method="post" onsubmit="return checkForm()">
+                    <div class="main-container">
+                        <div>
+                            <label for="draw-name">Draw</label>
+                            <select id="draw-name" name="draw_name" value="None">
+                                <option value="None">None</option>
+                                <% drawNames.forEach(draw=> { %>
+                                    <option value="<%= draw %>">
+                                        <%= draw %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="bill-name">Bill Sheet</label>
+                            <select name="bill_name" value="None" id="bill-name" disabled>
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                    </div>
+        </main>
+                <footer>
+                    <button type="submit">Get Data</button>
+                </footer>
+            </form>
+        </section>
+    </section>
+</body>
+<script>
+
+    function checkForm(e) {
+        if (document.getElementById("draw-name").value === "None") {
+            alert("Please Select draw first");
+            return false;
+        }
+        return true;
+    }
+
+    const select = document.getElementById("draw-name")
+
+    select.addEventListener("change", async e => {
+        let draw = e.target.value;
+
+        if (draw === "None") {
+
+            const nameSelect = document.getElementById("bill-name");
+            nameSelect.innerHTML = "";
+            const option = document.createElement("option");
+            option.value = "None";
+            option.innerHTML = "None";
+            nameSelect.appendChild(option);
+            nameSelect.setAttribute("disabled", "true");
+
+        } else {
+
+            const response = await fetch("/setting/get-all-bills", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ draw: draw }),
+            });
+
+            const data = await response.json();
+
+            if (response.status !== 200) {
+                alert(data.message)
+            }
+
+            const nameSelect = document.getElementById("bill-name");
+
+            nameSelect.removeAttribute("disabled");
+            nameSelect.innerHTML = "";
+
+            data.billNames.forEach(element => {
+                const option = document.createElement("option");
+                option.value = element;
+                option.innerHTML = element;
+                nameSelect.appendChild(option);
+            });
+
+        }
+    })
+
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/search.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/settings">User</a></li>
+        </ul>
+        <div class="nav-button">
+            <div class="username">
+                <%= userName %>
+            </div>
+            <% if(state) { %>
+                <a href="/logout">Logout</a>
+                <% }else{ %>
+                    <a href="/login">Login</a>
+                    <% } %>
+        </div>
+    </nav>
+    <section class="container search-container">
+        <h2>Search Number</h2>
+        <div class="fields">
+            <form action="/draw/get-number-info" method="post" onsubmit="return formSubmit()">
+                <label for="draw-name">Draw Name</label>
+                <select id="draw-name" name="draw_name">
+                    <option value="None">None</option>
+                    <% drawNames.forEach(draw=> { %>
+                        <option value="<%= draw %>"><%= draw %>
+                        </option>
+                        <% }) %>
+                </select>
+                <label for="number">Number</label>
+                <input type="text" required id="number" placeholder="number" name="number">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Number</th>
+                <th>1st</th>
+                <th>2nd</th>
+                <th>S.#</th>
+                <th>Customer Name</th>
+            </tr>
+            <% if(data){ %>
+                <% if(data.length > 0){ %>
+                    <% data.forEach( (obj, ind) => { %>
+                        <tr>
+                            <td><%= ind + 1 %></td>
+                            <td><%= obj.number%></td>
+                            <td><%= obj.first %></td>
+                            <td><%= obj.second %></td>
+                            <td><%= obj.sNo %></td>
+                            <td><%= obj.customer_name %></td>
+                        </tr>
+                    <% }) %>
+                <% }else{ %>
+                    <script>
+                        alert("No number found");
+                    </script>
+                <% } %>
+            <% } %>
+        </table>
+    </section>
+</body>
+<script>
+
+    function formSubmit(){
+        const select = document.getElementById("draw-name");
+        if(select.value === "None"){
+            alert("Please Select Draw Name");
+            return false;
+        };
+        return true;
+    }
+
+</script>
+</html>

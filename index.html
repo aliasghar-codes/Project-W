@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings - App</title>
+    <link rel="stylesheet" href="./style.css">
+    <style media="print">
+        html {
+            visibility: hidden;
+        }
+
+        .printable-content {
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/settings">User Settings</a></li>
+        </ul>
+        <div class="nav-button">
+            <div class="username">
+                Waqar
+            </div>
+            <a href="/login">Login</a>
+        </div>
+    </nav>
+    <h2 class="container">Reports</h2>
+    <section class="setting-container container">
+        <section class="navigation-panel">
+            <ul>
+                <li><a href="#">Total Sale</a></li>
+                <li><a href="#">Total Party Sale</a></li>
+                <li><a href="#">Bill sheet</a></li>
+                <li><a href="#">Client Prize invoice</a></li>
+                <li><a href="#">Add Draw</a></li>
+                <li><a href="#">Change Password</a></li>
+            </ul>
+        </section>
+        <section class="setting-items">
+            <header><h3>Total Sale Report</h3></header>
+            <main>
+                <form action="#">
+                    <div class="main-container">
+                        <div>
+                            <label for="date">Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div>
+                            <label for="report">Filter</label>
+                            <select name="sorting" id="report">
+                                <option value="without_sort">Without Sort</option>
+                                <option value="with_sort">With Sort</option>
+                            </select>
+                        </div>
+                    </div>
+            </main>
+            <footer>
+                    <button type="submit">Get Data</button>
+                </form>
+            </footer>
+        </section>
+    </section>
+</body>
+<script src="./script.js"></script>
+
+</html>
